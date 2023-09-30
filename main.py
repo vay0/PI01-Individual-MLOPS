@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 import pandas as pd
 from pandas.io.parsers.readers import read_csv
-from tabulate import tabulate
 
 app = FastAPI(title= 'STEAM',
               description= 'El objetivo de esta API es mostrar los resultados para las siguientes funciones a partir de la bases de datos de STEAM')
