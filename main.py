@@ -11,8 +11,6 @@ df_generos = pd.read_parquet('generos.parquet')
 
 @app.get('/PlayTimeGenre')
 def PlayTimeGenre(genero: str):
-    """
-    """
     # Filtrar el DataFrame df_generos por género
     genero_data = df_generos[df_generos['genres'] == genero]
     
@@ -22,11 +20,8 @@ def PlayTimeGenre(genero: str):
     # Obtener los ID de los juegos que pertenecen al género
     juego_ids = genero_data['id'].tolist()
     
-    # Filtrar df_items por los ID de juego
-    juegos_genero = df_items[df_items['item_id'].isin(juego_ids)]
-    
-    # Combinar con df_games
-    generos_juegos = pd.merge(juegos_genero, df_games, left_on='item_id', right_on='id')
+    # Filtrar df_items por los ID de juego y combinar con df_games
+    generos_juegos = df_items[df_items['item_id'].isin(juego_ids)].merge(df_games, left_on='item_id', right_on='id')
     
     # Calcular el año con la máxima cantidad de horas de juego
     generos_juegos['release_date'] = generos_juegos['release_date'].astype(str)
