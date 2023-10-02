@@ -11,6 +11,7 @@ df_generos = pd.read_parquet('generos.parquet')
 
 @app.get('/PlayTimeGenre')
 def PlayTimeGenre(genero: str):
+    genero = genero.lower()
     # Filtrar el DataFrame df_generos por género
     genero_data = df_generos[df_generos['genres'] == genero]
     
@@ -36,6 +37,7 @@ def PlayTimeGenre(genero: str):
 def userforgenre(genero: str):
     """
     """
+    genero = genero.lower()
     # Combinar DataFrames
     generos_usuario = pd.merge(df_generos, df_items, left_on='id', right_on='item_id', how='inner')
     generos_usuario = pd.merge(generos_usuario, df_games, left_on='id', right_on='id', how='inner')
