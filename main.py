@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 import pandas as pd
 import numpy as np
-import gzip
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import linear_kernel
 
 app = FastAPI(title= 'STEAM',
               description= 'El objetivo de esta API es mostrar los resultados para las siguientes funciones a partir de la bases de datos de STEAM')
@@ -11,8 +12,7 @@ df_items = pd.read_parquet('Datasets\items.parquet')
 df_reviews = pd.read_parquet('Datasets\Reviews.parquet')
 df_generos = pd.read_parquet('Datasets\generos.parquet')
 df = pd.read_parquet('Datasets\Recomendacion.parquet')
-with gzip.open('Datasets\cosine_sim.npy.gz', 'rb') as f:
-    cosine_sim = np.load(f)
+
 
 @app.get('/PlayTimeGenre')
 def PlayTimeGenre(genero: str):
@@ -158,6 +158,13 @@ def recomendacion_juego(id):
         return no_encontrado
     
     else:
+        # Crea una matriz TF-IDF para los géneros de los juegos
+        tfidf_vectorizer = TfidfVectorizer(stop_words='english', max_features=500)  # Cambia 500 al número deseado de características
+        tfidf_matrix = tfidf_vectorizer.fit_transform(grouped_genres_title['genres_text'])
+        
+        # Calcula la similitud del coseno entre los juegos bajo demanda
+        cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
+
         # Encuentra el índice del juego con el ID dado
         idx = df[df['id'] == id].index[0]
 
