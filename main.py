@@ -160,7 +160,7 @@ def recomendacion_juego(id):
     else:
         # Crea una matriz TF-IDF para los géneros de los juegos
         tfidf_vectorizer = TfidfVectorizer(stop_words='english', max_features=500)  # Cambia 500 al número deseado de características
-        tfidf_matrix = tfidf_vectorizer.fit_transform(grouped_genres_title['genres_text'])
+        tfidf_matrix = tfidf_vectorizer.fit_transform(df['genres_text'])
         
         # Calcula la similitud del coseno entre los juegos bajo demanda
         cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
