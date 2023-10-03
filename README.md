@@ -6,9 +6,8 @@
 En este proyecto de MLOPS, se me ha solicitado desempeñar el papel de un Data Scientist en Steam, una plataforma multinacional de videojuegos. 
 Dado que el conjunto de datos presenta datos poco estructurados (anidados, con columnas que contienen datos nulos, entre otros problemas), se 
 requiere realizar rápidamente el trabajo de un Data Engineer y crear un MVP (Producto Mínimo Viable) para cerrar el proyecto. El proyecto implica
-la realización del proceso de ETL, desarrollo de una API, implementación, análisis exploratorio de datos y construcción de un modelo de aprendizaje
-automático con el objetivo de crear un sistema de recomendación. En este proyecto se incluyen las siguientes etapas: ETL, análisis de sentimientos,
-funciones para los endpoints de la API, despliegue de la API y análisis exploratorio de datos.
+la realización del proceso de ETL, desarrollo de una API, deployment, análisis exploratorio de datos y construcción de un modelo de aprendizaje
+automático con el objetivo de crear un sistema de recomendación.
 
 ## Estructura de Archivos
 
