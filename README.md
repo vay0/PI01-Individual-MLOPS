@@ -12,7 +12,8 @@ funciones para los endpoints de la API, despliegue de la API y análisis explora
 
 ## Estructura de Archivos
 
-- **Datasets:** En el repositorio se encuentran los siguientes datasets necesarios para el desarrollo de la API y el modelo de recomendación:
+### Datasets: 
+En el repositorio se encuentran los siguientes datasets necesarios para el desarrollo de la API y el modelo de recomendación:
   - Recomendacion.parquet
   - Reviews.parquet
   - games.parquet
@@ -22,7 +23,7 @@ funciones para los endpoints de la API, despliegue de la API y análisis explora
 
 - **Diccionario de Datos STEAM.xlsx:** Este archivo de Excel contiene la descripción de cada columna de cada uno de los datasets.
 
-## Archivos de Python
+### Archivos de Python
 
 - **EDA y ML:** Este archivo contiene el proceso de Análisis Exploratorio de Datos (EDA). Aquí se exploran los datos, se realizan visualizaciones
   y se extrae información para comprender mejor el conjunto de datos. Además, también se encuentra el desarrollo del modelo de recomendación solicitado.
@@ -30,7 +31,7 @@ funciones para los endpoints de la API, despliegue de la API y análisis explora
 - **Etl y funciones:** Este archivo detalla el proceso de Extracción, Transformación y Carga de datos (ETL), donde se obtienen los datos y se transforman
   de acuerdo con las necesidades del proyecto para su posterior análisis. Además, este archivo también contiene las funciones necesarias para la API.
 
-## Main.py - API
+### Main.py - API
 
 El archivo `main.py` contiene el código de la API web desarrollada con FastAPI. Esta API ofrece endpoints para consultar y analizar datos relacionados con
 juegos y usuarios.
