@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 import pandas as pd
-import pickle
+import numpy as np
+import gzip
 
 app = FastAPI(title= 'STEAM',
               description= 'El objetivo de esta API es mostrar los resultados para las siguientes funciones a partir de la bases de datos de STEAM')
@@ -10,8 +11,8 @@ df_items = pd.read_parquet('Datasets\items.parquet')
 df_reviews = pd.read_parquet('Datasets\Reviews.parquet')
 df_generos = pd.read_parquet('Datasets\generos.parquet')
 df = pd.read_parquet('Datasets\Recomendacion.parquet')
-with open('Datasets\cosine_sim.pkl', 'rb') as file:
-    cosine_sim = pickle.load(file)
+with gzip.open('Datasets\cosine_sim.npy.gz', 'rb') as f:
+    cosine_sim = np.load(f)
 
 @app.get('/PlayTimeGenre')
 def PlayTimeGenre(genero: str):
