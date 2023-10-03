@@ -7,11 +7,11 @@ from sklearn.metrics.pairwise import linear_kernel
 app = FastAPI(title= 'STEAM',
               description= 'El objetivo de esta API es mostrar los resultados para las siguientes funciones a partir de la bases de datos de STEAM')
 
-df_games = pd.read_parquet('Datasets\games.parquet')
-df_items = pd.read_parquet('Datasets\items.parquet')
-df_reviews = pd.read_parquet('Datasets\Reviews.parquet')
-df_generos = pd.read_parquet('Datasets\generos.parquet')
-df = pd.read_parquet('Datasets\Recomendacion.parquet')
+df_games = pd.read_parquet('games.parquet')
+df_items = pd.read_parquet('items.parquet')
+df_reviews = pd.read_parquet('Reviews.parquet')
+df_generos = pd.read_parquet('generos.parquet')
+df = pd.read_parquet('Recomendacion.parquet')
 
 
 @app.get('/PlayTimeGenre')
