@@ -1,13 +1,17 @@
 from fastapi import FastAPI
 import pandas as pd
+import pickle
 
 app = FastAPI(title= 'STEAM',
               description= 'El objetivo de esta API es mostrar los resultados para las siguientes funciones a partir de la bases de datos de STEAM')
 
-df_games = pd.read_parquet('games.parquet')
-df_items = pd.read_parquet('items.parquet')
-df_reviews = pd.read_parquet('reviews.parquet')
-df_generos = pd.read_parquet('generos.parquet')
+df_games = pd.read_parquet('Datasets\games.parquet')
+df_items = pd.read_parquet('Datasets\items.parquet')
+df_reviews = pd.read_parquet('Datasets\Reviews.parquet')
+df_generos = pd.read_parquet('Datasets\generos.parquet')
+df = pd.read_parquet('Datasets\Recomendacion.parquet')
+with open('Datasets\cosine_sim.pkl', 'rb') as file:
+    cosine_sim = pickle.load(file)
 
 @app.get('/PlayTimeGenre')
 def PlayTimeGenre(genero: str):
@@ -146,5 +150,32 @@ def sentiment_analysis(year: int):
       no_encontrado = f'El año {year} no fue encontrado en la base de datos'
       return no_encontrado
   
+@app.get('/recomendacion_juego')
+def recomendacion_juego(id):
+    if id not in df['id'].values:
+        no_encontrado = f'El id {id} no fue encontrado en la base de datos'
+        return no_encontrado
+    
+    else:
+        # Encuentra el índice del juego con el ID dado
+        idx = df[df['id'] == id].index[0]
+
+        # Obtén las puntuaciones de similitud del coseno para todos los juegos
+        sim_scores = list(enumerate(cosine_sim[idx]))
+
+        # Ordena los juegos en función de las puntuaciones de similitud
+        sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+
+        # Obtén los índices de los juegos más similares (excluyendo el juego de entrada)
+        sim_scores = sim_scores[1:6]  # Cambia esto si quieres más o menos recomendaciones
+
+        # Obtiene los títulos de los juegos recomendados
+        game_indices = [i[0] for i in sim_scores]
+        recommended_game_titles = df.iloc[game_indices]['title']
+
+        # Convierte la lista de títulos en una lista plana y única
+        recommended_game_titles_flat = list(set([title for sublist in recommended_game_titles for title in sublist]))
+
+        return recommended_game_titles_flat
   
   # http://127.0.0.1:8000
